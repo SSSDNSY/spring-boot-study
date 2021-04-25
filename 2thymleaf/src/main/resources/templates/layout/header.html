@@ -1,0 +1,6 @@
+<html lang="en" th:fragment="header(title,status)">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}+' '+${status}"></title>
+    <link rel="stylesheet" th:href="${status}=='edit'?@{/bootstrap.css}:@{bootstrap.css}">
+</head>

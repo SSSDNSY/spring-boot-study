@@ -1,0 +1,50 @@
+<div th:insert="layout/header::header(title='用户列表(分页)',status='list')"/>
+<body>
+<div class="container">
+    <h2 class="text-center text-primary">用户列表</h2>
+    <table class="table table-hover ">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>password</th>
+            <th>sex</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" user :${page.content}" class="table-row-cell">
+            <td scope="row" th:text="${userStat.count}"></td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.sex}=='M'?'男':'女'"></td>
+            <td><a th:href="${'/toEdit/'+user.id}" class="text-info">编辑</a></td>
+            <td><a th:href="@{/delete(id=${user.id})}" class="text-primary">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container right text-center">
+        <div class="">
+            <ul class="pagination">
+                <li><a th:text="'共'+${ page.totalPages}+'页  | '+'每页'+${page.getSize()}+'条 | '+
+                    '当前第'+ ${page.number+1} +'页'"></a></li>
+                <li><a th:if="${not page.isFirst()}" th:href="@{/pages(start=0)}">[首页]</a></li>
+                <li><a th:if="${not page.isFirst()}" th:href="@{/pages(start=${page.number-1})}">[上一页]</a></li>
+                <li><a th:if="${not page.isLast()}" th:href="@{/pages(start=${page.number+1})}">[下一页]</a></li>
+                <li><a th:if="${not page.isLast()}" th:href="@{/pages(start=${page.totalPages-1})}">[末页]</a></li>
+                <!--                <li><a href="/toAdd" class=" list-group list-group-item  text-danger bg-info">新增</a></li>-->
+            </ul>
+            <li class="list-group-item"><a href="/toAdd" class="btn btn-danger text-danger bg-info">新增</a></li>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</div>
+<div th:insert="layout/footer::footer"/>
